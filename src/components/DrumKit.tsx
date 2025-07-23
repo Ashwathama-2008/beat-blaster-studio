@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
+import { useDrumSounds } from '@/hooks/useDrumSounds';
 import drumStudioBg from '@/assets/drum-studio-bg.jpg';
 
 interface DrumButton {
@@ -8,24 +9,30 @@ interface DrumButton {
   label: string;
   color: string;
   sound: string;
+  drumType: string;
 }
 
 const drumButtons: DrumButton[] = [
-  { key: 'w', label: 'W', color: 'drum-kick', sound: 'Kick' },
-  { key: 'a', label: 'A', color: 'drum-snare', sound: 'Snare' },
-  { key: 's', label: 'S', color: 'drum-hihat', sound: 'Hi-Hat' },
-  { key: 'd', label: 'D', color: 'drum-openhat', sound: 'Open Hat' },
-  { key: 'j', label: 'J', color: 'drum-tom', sound: 'Tom' },
-  { key: 'k', label: 'K', color: 'drum-crash', sound: 'Crash' },
-  { key: 'l', label: 'L', color: 'drum-ride', sound: 'Ride' },
+  { key: 'w', label: 'W', color: 'drum-kick', sound: 'Kick', drumType: 'kick' },
+  { key: 'a', label: 'A', color: 'drum-snare', sound: 'Snare', drumType: 'snare' },
+  { key: 's', label: 'S', color: 'drum-hihat', sound: 'Hi-Hat', drumType: 'hihat' },
+  { key: 'd', label: 'D', color: 'drum-openhat', sound: 'Open Hat', drumType: 'openhat' },
+  { key: 'j', label: 'J', color: 'drum-tom', sound: 'Tom', drumType: 'tom' },
+  { key: 'k', label: 'K', color: 'drum-crash', sound: 'Crash', drumType: 'crash' },
+  { key: 'l', label: 'L', color: 'drum-ride', sound: 'Ride', drumType: 'ride' },
 ];
 
 const DrumKit = () => {
   const [hitKeys, setHitKeys] = useState<Set<string>>(new Set());
+  const { playSound } = useDrumSounds();
 
-  const playDrum = (drumButton: DrumButton) => {
+  const playDrum = async (drumButton: DrumButton) => {
     setHitKeys(prev => new Set(prev.add(drumButton.key)));
-    toast.success(`${drumButton.sound} played!`, {
+    
+    // Play the actual drum sound
+    await playSound(drumButton.drumType);
+    
+    toast.success(`🥁 ${drumButton.sound} played!`, {
       duration: 1000,
     });
     
