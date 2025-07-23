@@ -52,6 +52,15 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
+				drum: {
+					kick: 'hsl(var(--drum-kick))',
+					snare: 'hsl(var(--drum-snare))',
+					hihat: 'hsl(var(--drum-hihat))',
+					openhat: 'hsl(var(--drum-openhat))',
+					tom: 'hsl(var(--drum-tom))',
+					crash: 'hsl(var(--drum-crash))',
+					ride: 'hsl(var(--drum-ride))'
+				},
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',
 					foreground: 'hsl(var(--sidebar-foreground))',
